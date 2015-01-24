@@ -7,5 +7,6 @@ public class GGJ2015 : ModuleRules
 	public GGJ2015(TargetInfo Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+        PublicDependencyModuleNames.Add("Paper2D");
 	}
 }
