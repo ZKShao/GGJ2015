@@ -2,6 +2,7 @@
 
 #include "GGJ2015.h"
 #include "GGJ2015Character.h"
+#include "Ghosts/GhostGenerator.h"
 
 AGGJ2015Character::AGGJ2015Character(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -33,4 +34,11 @@ AGGJ2015Character::AGGJ2015Character(const FObjectInitializer& ObjectInitializer
 	TopDownCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+}
+
+void AGGJ2015Character::StoreEvent(EGhostEvent Event)
+{
+	if (!Generator)
+		return;
+	Generator->StoreEvent(Event);
 }
