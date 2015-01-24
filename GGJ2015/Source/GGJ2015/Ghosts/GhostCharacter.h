@@ -26,9 +26,14 @@ class GGJ2015_API AGhostCharacter : public ACharacter
 	void OnGhostEvent(EGhostEvent Event);
 	UFUNCTION(BlueprintImplementableEvent, Category = GGJ2015)
 	void OnGhostInit(const FString& Name, float RemainingTime);
+	UFUNCTION(BlueprintImplementableEvent, Category = GGJ2015)
+	void OnDirectionChange(const FVector& Direction);
 	
 public:
 	void InitGhost(FGhostData inGhostData);
+
+	UPROPERTY(BlueprintReadOnly, Category = GGJ2015)
+	FVector Direction;
 
 	float				TrackingTime;
 	FGhostData			GhostData;

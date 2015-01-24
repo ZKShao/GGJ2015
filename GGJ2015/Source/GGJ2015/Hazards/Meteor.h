@@ -17,5 +17,4 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = GGJ2015)
 	FVector Velocity;
 	
-	
 };

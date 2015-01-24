@@ -31,9 +31,20 @@ void AGhostCharacter::UpdateMovement(float DeltaSeconds)
 	FGhostData_Keyframe& NextFrame = GhostData.Keyframes[0];
 	if (TrackingTime > NextFrame.TimeStamp)
 	{
+		FVector CurrentLoc = NextFrame.Location;
+
 		// Apply this keyframe and remove it
-		SetActorLocation(NextFrame.Location);
+		SetActorLocation(CurrentLoc);
 		GhostData.Keyframes.RemoveAt(0);
+
+		if (GhostData.Keyframes.Num() > 0)
+		{
+			FVector NextLoc = GhostData.Keyframes[0].Location;
+			FVector Diff = NextLoc - CurrentLoc;
+			float OutLength = 0;
+			Diff.ToDirectionAndLength(Direction, OutLength);
+			OnDirectionChange(Direction);
+		}
 	}
 	else
 	{

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "Engine/StaticMeshActor.h"
 #include "RoomDestroyer.generated.h"
 
 /**
