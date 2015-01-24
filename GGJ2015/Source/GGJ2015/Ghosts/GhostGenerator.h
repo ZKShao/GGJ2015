@@ -26,9 +26,14 @@ class GGJ2015_API AGhostGenerator : public AActor
 public:
 	UFUNCTION(BlueprintCallable, Category = GGJ2015)
 	void CreateTestGhost();
-
 	UFUNCTION(BlueprintCallable, Category = GGJ2015)
 	void StoreEvent(EGhostEvent Event);
+	UFUNCTION(BlueprintImplementableEvent, Category = GGJ2015)
+	void BP_ShowScore(const int32 Time, const int32 NumBefore, const int32 NumAfter);
+	
+	void OnDeath();
+
+	bool Died;
 
 	UPROPERTY(EditDefaultsOnly)
 	float					TrackingInterval;

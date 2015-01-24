@@ -20,8 +20,14 @@ AGGJ2015Character::AGGJ2015Character(const FObjectInitializer& ObjectInitializer
 	//GetCharacterMovement()->RotationRate = FRotator(0.f, 640.f, 0.f);
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
+}
 
-  
+float AGGJ2015Character::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, class AController * EventInstigator, AActor * DamageCauser)
+{
+	// Die
+	if (Generator)
+		Generator->OnDeath();
+	return DamageAmount;
 }
 
 void AGGJ2015Character::StoreEvent(EGhostEvent Event)

@@ -2,6 +2,7 @@
 
 #include "GGJ2015.h"
 #include "GameMode/GGJ2015Character.h"
+#include "GameMode/GGJ2015GameInstance.h"
 #include "GhostGenerator.h"
 #include "GhostLoader.h"
 #include "Engine.h"
@@ -12,6 +13,7 @@ AGhostGenerator::AGhostGenerator(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	TrackingInterval = 0.5f;
+	Died = false;
 }
 
 
@@ -41,9 +43,15 @@ void AGhostGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 	UE_LOG(LogTemp, Warning, TEXT("Bye"));
 
-	GhostData.Name = "Kang";
-	GhostData.TimeRemaining = TrackingTime;
+	if (EndPlayReason != EEndPlayReason::LevelTransition)
+		return;
 
+	UGGJ2015GameInstance * GI = Cast<UGGJ2015GameInstance>(GetGameInstance());
+	if (!GI)
+		return;
+
+	GhostData.Name = GI->PlayerName;
+	GhostData.TimeRemaining = TrackingTime;
 	GhostIO::WriteGhostData(GetWorld()->GetMapName(), GhostData);
 }
 
@@ -77,4 +85,28 @@ void AGhostGenerator::StoreEvent(EGhostEvent inEvent)
 	Event.TimeStamp = TrackingTime;
 
 	GhostData.Events.Add(Event);
+}
+
+void AGhostGenerator::OnDeath()
+{
+	if (Died)
+		return;
+	Died = true;
+
+	TArray<FGhostData> GhostDatas = GhostIO::LoadGhostData(GetWorld()->GetMapName());
+	int32 NumBefore = 0;
+	int32 NumAfter = 0;
+	for (auto Itr = GhostDatas.CreateConstIterator(); Itr; ++Itr)
+	{
+		const FGhostData& GhostData = *Itr;
+		if (GhostData.TimeRemaining > TrackingTime)
+			NumAfter++;
+		else
+			NumBefore++;
+	}
+
+	TrackedActor->GetCharacterMovement()->Velocity = FVector(0, 0, 0);
+
+	const int32 TimeSeconds = FMath::RoundToInt(TrackingTime);
+	BP_ShowScore(TimeSeconds, NumBefore, NumAfter);
 }

@@ -17,6 +17,8 @@ class AGGJ2015Character : public APaperCharacter
 
 public:
 	AGGJ2015Character(const FObjectInitializer& ObjectInitializer);
+
+	virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
 	
 	UFUNCTION(BlueprintCallable, Category = GGJ2015)
 	void StoreEvent(EGhostEvent Event);

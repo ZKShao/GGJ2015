@@ -53,7 +53,7 @@ void AGhostCharacter::UpdateEvents(float DeltaSeconds)
 	if (TrackingTime > NextEvent.TimeStamp)
 	{
 		// Fire event and remove it
-		OnEvent(EGhostEvent(NextEvent.Event));
+		OnGhostEvent(EGhostEvent(NextEvent.Event));
 		GhostData.Events.RemoveAt(0);
 	}
 }
@@ -62,4 +62,6 @@ void AGhostCharacter::InitGhost(FGhostData inGhostData)
 {
 	TrackingTime = 0;
 	GhostData = inGhostData;
+
+	OnGhostInit(GhostData.Name, GhostData.TimeRemaining);
 }

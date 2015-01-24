@@ -23,7 +23,9 @@ class GGJ2015_API AGhostCharacter : public ACharacter
 	void UpdateEvents(float DeltaSeconds);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = GGJ2015)
-	void OnEvent(EGhostEvent Event);
+	void OnGhostEvent(EGhostEvent Event);
+	UFUNCTION(BlueprintImplementableEvent, Category = GGJ2015)
+	void OnGhostInit(const FString& Name, float RemainingTime);
 	
 public:
 	void InitGhost(FGhostData inGhostData);
