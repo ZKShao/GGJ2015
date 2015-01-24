@@ -30,3 +30,33 @@ void AGGJ2015Character::StoreEvent(EGhostEvent Event)
 		return;
 	Generator->StoreEvent(Event);
 }
+
+FString AGGJ2015Character::GetVelocityFacing(FVector velocity) {
+
+  //Idle
+  if (velocity.Size() == 0.f)
+    return "Idle";
+
+  TArray<float> dotProducts;
+  dotProducts.Init(4);
+  //Right
+  dotProducts[0] = FVector::DotProduct(velocity, FVector(1.f, 0.f, 0.f));
+  //Left
+  dotProducts[1] = FVector::DotProduct(velocity, FVector(-1.f, 0.f, 0.f));
+  //Up
+  dotProducts[2] = FVector::DotProduct(velocity, FVector(0.f, -1.f, 0.f));
+  //Down
+  dotProducts[3] = FVector::DotProduct(velocity, FVector(0.f, 1.f, 0.f));
+
+  int maxIndex;
+  FMath::Max<float>(dotProducts, &maxIndex);
+
+  switch (maxIndex) {
+  case 0: return "R";
+  case 1: return "L";
+  case 2: return "U";
+  case 3: return "D";
+  }
+
+  return "Idle";
+}
