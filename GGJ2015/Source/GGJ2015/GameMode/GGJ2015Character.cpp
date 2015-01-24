@@ -58,5 +58,6 @@ FString AGGJ2015Character::GetVelocityFacing(FVector velocity) {
   case 3: return "D";
   }
 
+
   return "Idle";
 }
