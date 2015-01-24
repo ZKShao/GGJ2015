@@ -23,6 +23,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = GGJ2015)
 	void StoreEvent(EGhostEvent Event);
 
+  UFUNCTION(BlueprintCallable, Category = GGJ2015)
+  FString GetVelocityFacing(FVector velocity);
+
 	AGhostGenerator * Generator;
 
 };
