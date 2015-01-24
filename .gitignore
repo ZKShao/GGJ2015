@@ -1,7 +1,8 @@
-GGJ2015/Binaries/
+GGJ2015/Binaries/Win64/*.pdb
 GGJ2015/Intermediate/
 GGJ2015/Saved/
 GGJ2015/Content/StarterContent/
 GGJ2015/GGJ2015.sdf
 GGJ2015/GGJ2015.sln
 GGJ2015/GGJ2015.v12.suo
+GGJ2015/GGJ2015.opensdf
